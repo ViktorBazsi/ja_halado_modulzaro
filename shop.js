@@ -418,49 +418,50 @@ console.log(getUniqueCategories(shopData));
 
 //Updated 6-os megoldás, a 7-es feladat:
 function drawCategories(categories) {
-    const container = document.createElement('div');
-    container.className = 'categories-container';
-  
-    let activeButton = null;
-  
-    categories.forEach(category => {
-      const button = document.createElement('button');
-      button.className = 'category-btn';
-      button.textContent = category;
-  
-      button.addEventListener('click', () => {
-        if (activeButton) {
-          activeButton.style.backgroundColor = '';
-        }
-  
-        if (activeButton !== button) {
-          button.style.backgroundColor = 'red';
-          activeButton = button;
-          
-          const filteredProducts = shopData.filter(product => product.category === button.textContent);
-          render(filteredProducts);
-        } else {
-          activeButton = null;
-          
-          render(shopData);
-        }
-      });
-  
-      container.appendChild(button);
+  const container = document.createElement("div");
+  container.className = "categories-container";
+
+  let activeButton = null;
+
+  categories.forEach((category) => {
+    const button = document.createElement("button");
+    button.className = "category-btn";
+    button.textContent = category;
+
+    button.addEventListener("click", () => {
+      if (activeButton) {
+        activeButton.style.backgroundColor = "";
+      }
+
+      if (activeButton !== button) {
+        button.style.backgroundColor = "red";
+        activeButton = button;
+
+        const filteredProducts = shopData.filter(
+          (product) => product.category === button.textContent
+        );
+        render(filteredProducts);
+      } else {
+        activeButton = null;
+
+        render(shopData);
+      }
     });
-  
-    const productsDiv = document.getElementById('products');
-    const existingContainer = productsDiv.querySelector('.categories-container');
-    if (existingContainer) {
-      productsDiv.removeChild(existingContainer);
-    }
-  
-    productsDiv.parentNode.insertBefore(container, productsDiv);
+
+    container.appendChild(button);
+  });
+
+  const productsDiv = document.getElementById("products");
+  const existingContainer = productsDiv.querySelector(".categories-container");
+  if (existingContainer) {
+    productsDiv.removeChild(existingContainer);
   }
-  
- 
-  const categories = getUniqueCategories(shopData);
-  drawCategories(categories);
+
+  productsDiv.parentNode.insertBefore(container, productsDiv);
+}
+
+const categories = getUniqueCategories(shopData);
+drawCategories(categories);
 
 // 8. Feladat (10)
 
@@ -469,6 +470,23 @@ function drawCategories(categories) {
 // (Ha nem tudtad megcsinálni ezeket a függvényeket, akkor írd ki a konzolra a függvények nevét ott, ahol meghívnád őket!)
 // Ha az API vagy az adatok kezelése hibát eredményez írd ki a konzolra, hogy "Hopp, hopp!" és írd ki az elkapott hibát is!
 
-/*
-    MEGOLDÁS HELYE
-*/
+function renderFromAPI() {
+  fetch("https://fakestoreapi.com/products")
+    .then((Response) => {
+      if (!Response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      return Response.json();
+    })
+    .then((products) => {
+      render(products);
+      const uniqueCategories = getUniqueCategories(products);
+      drawCategories(uniqueCategories);
+    })
+    .catch((error) => {
+      console.error("Hopp, hopp!");
+      console.error(error);
+    });
+}
+renderFromAPI();
