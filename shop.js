@@ -364,9 +364,45 @@ console.log(getUniqueCategories(shopData));
     </div>
 */
 
-/*
-    MEGOLDÁS HELYE
-*/
+function drawCategories(categories) {
+  const container = document.createElement("div");
+  container.className = "categories-container";
+
+  let activeButton = null;
+
+  categories.forEach((category) => {
+    const button = document.createElement("button");
+    button.className = "category-btn";
+    button.textContent = category;
+
+    button.addEventListener("click", () => {
+      if (activeButton) {
+        activeButton.style.backgroundColor = "";
+      }
+
+      if (activeButton !== button) {
+        button.style.backgroundColor = "red";
+        activeButton = button;
+      } else {
+        activeButton = null;
+      }
+    });
+
+    container.appendChild(button);
+  });
+
+  const productsDiv = document.getElementById("products");
+
+  const existingContainer = productsDiv.querySelector(".categories-container");
+  if (existingContainer) {
+    productsDiv.removeChild(existingContainer);
+  }
+
+  productsDiv.parentNode.insertBefore(container, productsDiv);
+}
+
+const categories = getUniqueCategories(shopData);
+drawCategories(categories);
 
 // 7. Feladat (20)
 
