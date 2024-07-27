@@ -331,9 +331,19 @@ render(shopData);
 // akkor egy olyan tömböt ad vissza, amiben csak a termékek kategóriái találhatók!
 // Minden kategória csak egyszer szerepeljen a tömbben!
 
-/*
-    MEGOLDÁS HELYE
-*/
+function getUniqueCategories(products) {
+  const uniqueCategories = [];
+
+  products.forEach((product) => {
+    if (!uniqueCategories.includes(product.category)) {
+      uniqueCategories.push(product.category);
+    }
+  });
+
+  return uniqueCategories;
+}
+
+console.log(getUniqueCategories(shopData));
 
 // 6. Feladat (20)
 
