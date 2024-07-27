@@ -266,9 +266,15 @@ printCheaperThan(50, shopData);
 // meg paraméterként, majd visszaadja a legolcsóbb termék árát!
 // A teljesértékű megoldáshoz használd a reduce metódust!
 
-/*
-    MEGOLDÁS HELYE
-*/
+function getCheapestProduct(products) {
+  if (products.length === 0) return null;
+
+  return products.reduce((cheapest, current) => {
+    return current.price < cheapest.price ? current : cheapest;
+  }).price;
+}
+
+console.log("Legolcsóbb termék ára: ", getCheapestProduct(shopData));
 
 // 4. Feladat (15)
 
