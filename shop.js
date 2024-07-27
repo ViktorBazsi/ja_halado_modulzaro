@@ -297,9 +297,33 @@ console.log("Legolcsóbb termék ára: ", getCheapestProduct(shopData));
     </div>
 */
 
-/*
-    MEGOLDÁS HELYE
-*/
+function render(products) {
+  const productsContainer = document.getElementById("products");
+  productsContainer.innerHTML = "";
+
+  products.forEach((product) => {
+    const productCard = document.createElement("div");
+    productCard.className = "product-card";
+
+    productCard.innerHTML = `
+            <img class="product-img" src="${product.image}" alt="${
+      product.title
+    }">
+            <div class="product-details">
+                <h4 class="product-name">${product.title}</h4>
+                <ul>
+                    <li>category: ${product.category}</li>
+                    <li>price: $${product.price.toFixed(2)}</li>
+                    <li>description: ${product.description}</li>
+                </ul>
+            </div>
+          `;
+
+    productsContainer.appendChild(productCard);
+  });
+}
+
+render(shopData);
 
 // 5. Feladat (15)
 
