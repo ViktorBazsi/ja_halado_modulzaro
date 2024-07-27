@@ -243,7 +243,6 @@ function printAllProducts(products) {
 
 printAllProducts(shopData);
 
-
 // 2. Feladat (5)
 
 // Készíts egy printCheaperThan nevű függvényt, ami egy számot és egy termékeket tartalmazó
@@ -251,9 +250,15 @@ printAllProducts(shopData);
 // A függvény írjon ki a konzolra egy olyan tömböt, amely csak azokat a termékeket
 // tartalmazza, amelyeknek az ára kevesebb, mint a paraméterben megadott szám!
 
-/*
-    MEGOLDÁS HELYE
-*/
+function printCheaperThan(maxPrice, products) {
+  const filteredProducts = products.filter(
+    (product) => product.price < maxPrice
+  );
+  console.log(filteredProducts);
+}
+
+// Teszt: 50  dollár alatt lévő termékekre:
+printCheaperThan(50, shopData);
 
 // 3. Feladat (10)
 
