@@ -364,45 +364,46 @@ console.log(getUniqueCategories(shopData));
     </div>
 */
 
-function drawCategories(categories) {
-  const container = document.createElement("div");
-  container.className = "categories-container";
+// Original 6-os feladat megoldás - kikommenteltem a 7. feladat miatt.
+// function drawCategories(categories) {
+//   const container = document.createElement("div");
+//   container.className = "categories-container";
 
-  let activeButton = null;
+//   let activeButton = null;
 
-  categories.forEach((category) => {
-    const button = document.createElement("button");
-    button.className = "category-btn";
-    button.textContent = category;
+//   categories.forEach((category) => {
+//     const button = document.createElement("button");
+//     button.className = "category-btn";
+//     button.textContent = category;
 
-    button.addEventListener("click", () => {
-      if (activeButton) {
-        activeButton.style.backgroundColor = "";
-      }
+//     button.addEventListener("click", () => {
+//       if (activeButton) {
+//         activeButton.style.backgroundColor = "";
+//       }
 
-      if (activeButton !== button) {
-        button.style.backgroundColor = "red";
-        activeButton = button;
-      } else {
-        activeButton = null;
-      }
-    });
+//       if (activeButton !== button) {
+//         button.style.backgroundColor = "red";
+//         activeButton = button;
+//       } else {
+//         activeButton = null;
+//       }
+//     });
 
-    container.appendChild(button);
-  });
+//     container.appendChild(button);
+//   });
 
-  const productsDiv = document.getElementById("products");
+//   const productsDiv = document.getElementById("products");
 
-  const existingContainer = productsDiv.querySelector(".categories-container");
-  if (existingContainer) {
-    productsDiv.removeChild(existingContainer);
-  }
+//   const existingContainer = productsDiv.querySelector(".categories-container");
+//   if (existingContainer) {
+//     productsDiv.removeChild(existingContainer);
+//   }
 
-  productsDiv.parentNode.insertBefore(container, productsDiv);
-}
+//   productsDiv.parentNode.insertBefore(container, productsDiv);
+// }
 
-const categories = getUniqueCategories(shopData);
-drawCategories(categories);
+// const categories = getUniqueCategories(shopData);
+// drawCategories(categories);
 
 // 7. Feladat (20)
 
@@ -415,9 +416,51 @@ drawCategories(categories);
 
 // (Ha nem sikerült a rendert megcsinálnod, akkor írd ki a konzolra, hogy mely termékeket kellene kirajzolnia a programnak)
 
-/*
-    MEGOLDÁS HELYE
-*/
+//Updated 6-os megoldás, a 7-es feladat:
+function drawCategories(categories) {
+    const container = document.createElement('div');
+    container.className = 'categories-container';
+  
+    let activeButton = null;
+  
+    categories.forEach(category => {
+      const button = document.createElement('button');
+      button.className = 'category-btn';
+      button.textContent = category;
+  
+      button.addEventListener('click', () => {
+        if (activeButton) {
+          activeButton.style.backgroundColor = '';
+        }
+  
+        if (activeButton !== button) {
+          button.style.backgroundColor = 'red';
+          activeButton = button;
+          
+          const filteredProducts = shopData.filter(product => product.category === button.textContent);
+          render(filteredProducts);
+        } else {
+          activeButton = null;
+          
+          render(shopData);
+        }
+      });
+  
+      container.appendChild(button);
+    });
+  
+    const productsDiv = document.getElementById('products');
+    const existingContainer = productsDiv.querySelector('.categories-container');
+    if (existingContainer) {
+      productsDiv.removeChild(existingContainer);
+    }
+  
+    productsDiv.parentNode.insertBefore(container, productsDiv);
+  }
+  
+ 
+  const categories = getUniqueCategories(shopData);
+  drawCategories(categories);
 
 // 8. Feladat (10)
 
